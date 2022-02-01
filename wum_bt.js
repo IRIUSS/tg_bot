@@ -1,6 +1,7 @@
 const { Telegraf, Markup } = require('telegraf')
 const { get_days, get_day } = require('./learning.js')
-const token = process.env.BOT_TOKEN = '2141359848:AAGNDrmsNvvo5rpH2DbAWGuXRoT1udXL6ec'
+const { tokenn } = require('./token.js')
+const token = process.env.BOT_TOKEN = tokenn()
 const bot = new Telegraf(token)
 
 let start_text = 'Шумански сосал...'
@@ -29,23 +30,23 @@ bot.hears('📢 Когда звонок', (ctx) => {
 
     ctx.reply('Времени сейчас: ' + time('t') + '\nСегодня: ' + get_day() + '\n')
 
-    if (830 > time() > 1000) {
-        par1 = 1000 - time()
+    if ("08:30" > time() > "10:00") {
+        par1 = "10:00" - time()
         ctx.reply('Шуманскi ' + par1)
-    } else if (1010 > time() > 1140) {
-        par2 = 1140 - time()
+    } else if ("10:10" > time() > "11:40") {
+        par2 = "11:40" - time()
         ctx.reply('Шуманскi ' + par2)
-    } else if (1200 > time() > 1330) {
-        par3 = 1330 - time()
+    } else if ("12:00" > time() > "13:30") {
+        par3 = "13:30" - time()
         ctx.reply('Шуманскi ' + par3)
-    } else if (1400 > time() > 1530) {
-        par4 = 1530 - time()
+    } else if ("14:00" > time() > "15:30") {
+        par4 = "15:30" - time()
         ctx.reply('Шyманскаму прочистили жопу' + par4)
-    } else if (1540 > time() > 1710) {
-        par5 = 1710 - time()
+    } else if ("15:40" > time() > "17:10") {
+        par5 = "17:10" - time()
         ctx.reply('Паша геи' + par5)
-    } else if (1715 > time() > 1845) {
-        par6 = 1845 - time()
+    } else if ("17:15" > time() > "18:45") {
+        par6 = "18:45" - time()
         console.log(par6)
         ctx.reply('Алексей горбунов педик' + par6)
     }
