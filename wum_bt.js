@@ -4,15 +4,15 @@ const token = process.env.BOT_TOKEN = '2141359848:AAGNDrmsNvvo5rpH2DbAWGuXRoT1ud
 const bot = new Telegraf(token)
 
 let start_text = 'Шумански сосал...'
-function time(t) {
-    let time = new Date()
-    if (t == 't') {
-        time = time.getHours() + ':' + time.getMinutes()
-        return time
-    } else {
-        time = time.getHours() + '' + time.getMinutes()
-        return time
-    }
+function time() {
+/*
+let test = JSON.parse(JSON.stringify(get_days('ad')))
+tesz = test.one.mass[0]
+mins = test.one.mass[1]
+let old_date = new Date(0, 0, 0, tesz, mins, 0, 0)
+ctx.reply(old.date.toString())
+*/
+
 }
 
 bot.start(async (ctx) => {
@@ -24,15 +24,6 @@ bot.start(async (ctx) => {
         .resize()
     )
 })
-
-/*
-let test = JSON.parse(JSON.stringify(get_days('ad')))
-tesz = test.one.mass[0]
-mins = test.one.mass[1]
-let old_date = new Date(0, 0, 0, tesz, mins, 0, 0)
-ctx.reply(old.date.toString())
-*/
-
 
 bot.hears('📢 Когда звонок', (ctx) => {
 
