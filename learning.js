@@ -1,3 +1,5 @@
+// Эту хуету переделаь потом
+
 function get_days(data) {
     let all_days = {
         "one": { "mass": ["08:30","10:00"], "data": "10 минут" },
