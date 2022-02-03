@@ -6,15 +6,20 @@ const bot = new Telegraf(token)
 
 let start_text = 'Шумански сосал...'
 function time() {
-/*
-let test = JSON.parse(JSON.stringify(get_days('ad')))
-tesz = test.one.mass[0]
-mins = test.one.mass[1]
-let old_date = new Date(0, 0, 0, tesz, mins, 0, 0)
-ctx.reply(old.date.toString())
-*/
+    async (ctx) => {
 
+    }
 }
+bot.command('test', (ctx) => {
+    let test = JSON.parse(JSON.stringify(get_days('ad')))
+    tesz = test.one.mass[0]
+    mins = test.one.mass[1]
+    let old_date = new Date(0, 0, 0, tesz, mins, 0, 0)
+    let new_date = new Date()
+    ddata = new_date - old_date
+    ctx.reply(ddata.toString())
+    // Пока что возвращает нан
+})
 
 bot.start(async (ctx) => {
     return await ctx.reply(start_text, Markup
