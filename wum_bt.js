@@ -5,11 +5,11 @@ const token = process.env.BOT_TOKEN = tokenn()
 const bot = new Telegraf(token)
 
 let start_text = 'Шумански сосал...'
-function time() {
-    async (ctx) => {
+//function time() {
+//async (ctx) => {
 
-    }
-}
+//    }
+//}
 bot.command('test', (ctx) => {
     let test = JSON.parse(JSON.stringify(get_days('ad')))
     tesz = test.one.mass[0]
