@@ -1,7 +1,29 @@
 import { Telegraf, Markup } from 'telegraf';
-const bot = new Telegraf('token');
+import sqlite3 from 'sqlite3';
+const bot = new Telegraf('5133511399:AAEFJps8_Rk1uvb9MRpJvaBF8A08WFw6lsU');
 
-const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла ООО стальная компания'
+var db = new sqlite3.Database('./users.db', (err) => {
+    if (err) {
+        return console.log(err.message);
+    }
+    console.log("Connected to database")
+});
+async function getdata(sql, row) {
+    return await new Promise((calback) => {
+        try {
+            db.all(sql, (error, row) => {
+                if (error) throw error
+                return calback(row)
+            })
+        } catch (e) {
+            return calback('Ошибка запроса! sql: ' + sql + '\n>>>>' + e)
+        }
+    })
+}
+db.run('CREATE TABLE IF NOT EXISTS users(ids)');
+let data_mass = [];
+
+const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла'
 bot.start(async (ctx) => {
     return await ctx.reply(start_text, Markup
         .keyboard([
@@ -21,8 +43,25 @@ bot.hears('📢 Когда обед', (ctx) => {
     if (dinner_time == 42) {
         ctx.reply('ЧИЧАС АБЕД!')
     } else {
-        ctx.reply('Стальком не верит вас минус 100 социальный рейтинг и миска рис с обед')
+        ctx.reply('Чичас не обед, босс недоволен тем чем вы занимаетесь в рабочее время!')
     }
+})
+bot.hears('🛒 Купить дазвееб', async (ctx) => {
+    let resp = await getdata('SELECT * FROM users')
+    for (let i = 0; i < resp.length; i++) {
+        data_mass.push(resp[i].ids)
+    }
+    console.log(data_mass)
+
+    bot.telegram.sendMessage(ctx.message.chat.id, `Привет: ${ctx.message.from.first_name}\nТвой id: ${ctx.message.from.id}\nТеперь ты подписан на рассылку сообщений о обеде!`)
+    data_mass = data_mass.filter((item, index) => {
+        return data_mass.indexOf(item) === index
+    });
+
+    if (data_mass.indexOf(ctx.message.chat.id) == -1) {
+        db.run(`INSERT INTO users(ids)VALUES(${ctx.message.chat.id})`)
+    } else { }
+    data_mass.push(ctx.message.chat.id)
 })
 bot.hears('Время сейчас', (ctx) => {
     let hours = (new Date()).getHours().toString().padStart(2, '0')
