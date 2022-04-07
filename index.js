@@ -1,6 +1,6 @@
 import { Telegraf, Markup } from 'telegraf';
 import sqlite3 from 'sqlite3';
-const bot = new Telegraf('5133511399:AAEFJps8_Rk1uvb9MRpJvaBF8A08WFw6lsU');
+const bot = new Telegraf('Token');
 
 var db = new sqlite3.Database('./users.db', (err) => {
     if (err) {
