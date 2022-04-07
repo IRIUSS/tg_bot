@@ -1,5 +1,5 @@
 import { Telegraf, Markup } from 'telegraf';
-const bot = new Telegraf('5094875865:AAE7Fq-f4u0C_ejpZ8zhyWOk2ujc8whEYO8');
+const bot = new Telegraf('token');
 
 const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла ООО стальная компания'
 bot.start(async (ctx) => {
