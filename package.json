@@ -1,0 +1,18 @@
+{
+  "name": "sk_allert",
+  "version": "0.0.1",
+  "description": "Stalcom alerts bot",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "/test"
+  },
+  "keywords": [
+    "bot"
+  ],
+  "author": "IRIUS",
+  "license": "MIT",
+  "dependencies": {
+    "telegraf": "^4.7.0"
+  }
+}
