@@ -1,6 +1,6 @@
 import { Telegraf, Markup } from 'telegraf';
 import sqlite3 from 'sqlite3';
-const bot = new Telegraf('token');
+const bot = new Telegraf('5133511399:AAEFJps8_Rk1uvb9MRpJvaBF8A08WFw6lsU');
 
 var db = new sqlite3.Database('./users.db', (err) => {
     if (err) {
@@ -23,17 +23,16 @@ db.run('CREATE TABLE IF NOT EXISTS users(ids)');
 let data_mass = [];
 
 setInterval(async function () {
-    let hours = (new Date()).getHours()
-    let minutes = (new Date()).getMinutes()
+    let hours = (new Date()).getHours().toString().padStart(2, '0')
+    let minutes = (new Date()).getMinutes().toString().padStart(2, '0')
     let dinner_time = `${hours}:${minutes}`
-
-    if (dinner_time == `12:30` || `12:31`) {
+    if (dinner_time == '12:30') {
         let user = await getdata('SELECT * FROM users')
         for (let i = 0; i < user.length; i++) {
             bot.telegram.sendMessage(user[i].ids, 'ЧИЧАС АБЕД!')
         }
     }
-}, 60000);
+}, 6000);
 
 
 const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла'
@@ -49,11 +48,11 @@ bot.start(async (ctx) => {
 })
 
 bot.hears('📢 Когда обед', (ctx) => {
-    let hours = (new Date()).getHours()
-    let minutes = (new Date()).getMinutes()
+    let hours = (new Date()).getHours().toString().padStart(2, '0')
+    let minutes = (new Date()).getMinutes().toString().padStart(2, '0')
     let dinner_time = `${hours}:${minutes}`
 
-    if (dinner_time == `12:30`) {
+    if (dinner_time == '12:30') {
         ctx.reply('ЧИЧАС АБЕД!')
     } else {
         ctx.reply('Чичас не обед, босс недоволен тем чем вы занимаетесь в рабочее/нерабочее время!')
