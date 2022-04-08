@@ -1,12 +1,11 @@
 import { Telegraf, Markup } from 'telegraf';
 import sqlite3 from 'sqlite3';
-const bot = new Telegraf('Token');
+const bot = new Telegraf('token');
 
 var db = new sqlite3.Database('./users.db', (err) => {
     if (err) {
         return console.log(err.message);
     }
-    console.log("Connected to database")
 });
 async function getdata(sql, row) {
     return await new Promise((calback) => {
@@ -23,6 +22,20 @@ async function getdata(sql, row) {
 db.run('CREATE TABLE IF NOT EXISTS users(ids)');
 let data_mass = [];
 
+setInterval(async function () {
+    let hours = (new Date()).getHours()
+    let minutes = (new Date()).getMinutes()
+    let dinner_time = `${hours}:${minutes}`
+
+    if (dinner_time == `12:30` || `12:31`) {
+        let user = await getdata('SELECT * FROM users')
+        for (let i = 0; i < user.length; i++) {
+            bot.telegram.sendMessage(user[i].ids, 'ЧИЧАС АБЕД!')
+        }
+    }
+}, 60000);
+
+
 const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла'
 bot.start(async (ctx) => {
     return await ctx.reply(start_text, Markup
@@ -38,12 +51,12 @@ bot.start(async (ctx) => {
 bot.hears('📢 Когда обед', (ctx) => {
     let hours = (new Date()).getHours()
     let minutes = (new Date()).getMinutes()
-    let dinner_time = hours + minutes
+    let dinner_time = `${hours}:${minutes}`
 
-    if (dinner_time == 42) {
+    if (dinner_time == `12:30`) {
         ctx.reply('ЧИЧАС АБЕД!')
     } else {
-        ctx.reply('Чичас не обед, босс недоволен тем чем вы занимаетесь в рабочее время!')
+        ctx.reply('Чичас не обед, босс недоволен тем чем вы занимаетесь в рабочее/нерабочее время!')
     }
 })
 bot.hears('🛒 Купить дазвееб', async (ctx) => {
@@ -51,7 +64,6 @@ bot.hears('🛒 Купить дазвееб', async (ctx) => {
     for (let i = 0; i < resp.length; i++) {
         data_mass.push(resp[i].ids)
     }
-    console.log(data_mass)
 
     bot.telegram.sendMessage(ctx.message.chat.id, `Привет: ${ctx.message.from.first_name}\nТвой id: ${ctx.message.from.id}\nТеперь ты подписан на рассылку сообщений о обеде!`)
     data_mass = data_mass.filter((item, index) => {
