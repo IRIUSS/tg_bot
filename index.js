@@ -29,7 +29,7 @@ setInterval(async function () {
     let minutes = (new Date()).getMinutes().toString().padStart(2, '0')
     let dinner_time = `${hours}:${minutes}`
 
-    if (weekday.getDay() !== 0) {
+    if (weekday !== 0) {
         if (dinner_time == '12:30') {
             let user = await getdata('SELECT * FROM users')
             for (let i = 0; i < user.length; i++) {
