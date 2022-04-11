@@ -23,16 +23,21 @@ db.run('CREATE TABLE IF NOT EXISTS users(ids)');
 let data_mass = [];
 
 setInterval(async function () {
+    let weekday = new Date()
+    weekday = weekday.getDay()
     let hours = (new Date()).getHours().toString().padStart(2, '0')
     let minutes = (new Date()).getMinutes().toString().padStart(2, '0')
     let dinner_time = `${hours}:${minutes}`
-    if (dinner_time == '12:30') {
-        let user = await getdata('SELECT * FROM users')
-        for (let i = 0; i < user.length; i++) {
-            bot.telegram.sendMessage(user[i].ids, 'ЧИЧАС АБЕД!')
+
+    if (weekday.getDay() !== 0) {
+        if (dinner_time == '12:30') {
+            let user = await getdata('SELECT * FROM users')
+            for (let i = 0; i < user.length; i++) {
+                bot.telegram.sendMessage(user[i].ids, 'ЧИЧАС АБЕД!')
+            }
         }
     }
-}, 6000);
+}, 60000);
 
 
 const start_text = 'Прив всем я крутой бот для показывания обеда в корпорации зла'
